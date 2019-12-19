@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="game2048_IDEAProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/game2048_IDEAProject_jar</output-path>
+    <root id="archive" name="game2048_IDEAProject.jar">
+      <element id="module-output" name="game2048_IDEAProject" />
+    </root>
+  </artifact>
+</component>

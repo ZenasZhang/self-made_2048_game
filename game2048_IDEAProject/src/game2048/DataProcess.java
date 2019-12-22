@@ -1,31 +1,48 @@
 package game2048;
 
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DataProcess extends JPanel implements KeyListener {
+public class DataProcess {
 
     private int[][] dataSet;
-    private int scoreUp = 0;
-    private int scoreDown = 0;
-    private int scoreLeft = 0;
-    private int scoreRight = 0;
-    private int score = 0;
+    public int scoreUp = 0;
+    public int scoreDown = 0;
+    public int scoreLeft = 0;
+    public int scoreRight = 0;
+    public int score = 0;
     private boolean canSlideUp = true;
     private boolean canSlideDown = true;
     private boolean canSlideRight = true;
     private boolean canSlideLeft = true;
     private boolean isFailed = false;
 
+    public int[][] getDataSet() {
+        return dataSet;
+    }
+
+    public boolean isCanSlideUp() {
+        return canSlideUp;
+    }
+
+    public boolean isCanSlideDown() {
+        return canSlideDown;
+    }
+
+    public boolean isCanSlideRight() {
+        return canSlideRight;
+    }
+
+    public boolean isCanSlideLeft() {
+        return canSlideLeft;
+    }
+
+    public boolean isFailed() {
+        return isFailed;
+    }
+
     public DataProcess() {
         init();
-        this.setFocusable(true);
-        this.addKeyListener(this);
     }
 
 
@@ -39,80 +56,8 @@ public class DataProcess extends JPanel implements KeyListener {
         dataSet[1][0] = 2;
         dataSet[2][0] = 2;
         this.dataSet = dataSet;
-
     }
 
-    public int[][] getDataSet() {
-        return dataSet;
-    }
-
-    public void paintComponent(Graphics g) {   //主画笔
-        super.paintComponent(g);
-        g.setColor(Color.black);
-        this.setBackground(Color.lightGray);
-        g.setFont(new Font("", Font.BOLD, 25));
-        g.drawString("请按方向键操作",10,50);
-        g.setFont(new Font("", Font.BOLD, 30));
-        g.drawString("分数: "+this.score,220,50);
-        g.drawLine(0,100,400,100);
-        g.drawLine(0,200,400,200);
-        g.drawLine(0,300,400,300);
-        g.drawLine(0,400,400,400);
-        g.drawLine(100,100,100,500);
-        g.drawLine(200,100,200,500);
-        g.drawLine(300,100,300,500);
-        g.setFont(new Font("", Font.BOLD, 50));
-        if (isFailed) {
-            g.setColor(Color.black);
-            g.drawString("you have lost",40,200);
-            g.setColor(Color.white);
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    if (this.dataSet[i][j]!= 0){
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }
-                }
-            }
-        } else {
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    if (this.dataSet[i][j] == 0){
-                        continue;
-                    }else if (this.dataSet[i][j] == 2){
-                        g.setColor(new Color(255, 254, 15));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    } else if (this.dataSet[i][j] == 4){
-                        g.setColor(new Color(255, 225, 8));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 8){
-                        g.setColor(new Color(255, 193, 10));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 16){
-                        g.setColor(new Color(255, 145, 6));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 32){
-                        g.setColor(new Color(255, 92, 10));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 64){
-                        g.setColor(new Color(255, 70, 5));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 128){
-                        g.setColor(new Color(255, 4, 43));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 256){
-                        g.setColor(new Color(255, 1, 102));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 512){
-                        g.setColor(new Color(255, 2, 163));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }else if (this.dataSet[i][j] == 1024){
-                        g.setColor(new Color(255, 6, 249));
-                        g.drawString(String.valueOf(this.dataSet[i][j]),100*j+15,170+100*i);
-                    }
-                }
-            }
-        }
-    }
 
     public int[][] slideUp(int[][] intDoubleArray) {
         for (int i = 0; i < 4; i++) {
@@ -226,7 +171,7 @@ public class DataProcess extends JPanel implements KeyListener {
         return oneLineScore;
     }
 
-    private void ifCanSlideUp(){
+    public void ifCanSlideUp(){
         int[][] before = new int[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -250,7 +195,7 @@ public class DataProcess extends JPanel implements KeyListener {
         canSlideUp = false;
     }
 
-    private void ifCanSlideDown(){
+    public void ifCanSlideDown(){
         int[][] before = new int[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -274,7 +219,7 @@ public class DataProcess extends JPanel implements KeyListener {
         canSlideDown = false;
     }
 
-    private void ifCanSlideLeft(){
+    public void ifCanSlideLeft(){
         int[][] before = new int[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -298,7 +243,7 @@ public class DataProcess extends JPanel implements KeyListener {
         canSlideLeft = false;
     }
 
-    private void ifCanSlideRight(){
+    public void ifCanSlideRight(){
         int[][] before = new int[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -322,7 +267,7 @@ public class DataProcess extends JPanel implements KeyListener {
         canSlideRight = false;
     }
 
-    private void ifFailed() {
+    public void ifFailed() {
         if (!canSlideDown && !canSlideUp && !canSlideRight && !canSlideLeft) {
             isFailed = true;
         } else {
@@ -330,54 +275,8 @@ public class DataProcess extends JPanel implements KeyListener {
         }
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        ifCanSlideRight();
-        ifCanSlideLeft();
-        ifCanSlideUp();
-        ifCanSlideDown();
-        ifFailed();
-        if (!isFailed){
-            if (keyCode == KeyEvent.VK_LEFT && canSlideLeft) {
-                this.score += this.scoreLeft;
-                slideLeft(this.dataSet);
-                addRandomNumber(this.dataSet);
-                repaint();
-            } else if (keyCode == KeyEvent.VK_RIGHT && canSlideRight) {
-                this.score += this.scoreRight;
-                slideRight(this.dataSet);
-                addRandomNumber(this.dataSet);
-                repaint();
-            } else if (keyCode == KeyEvent.VK_UP && canSlideUp) {
-                this.score += this.scoreUp;
-                slideUp(this.dataSet);
-                addRandomNumber(this.dataSet);
-                repaint();
-            } else if (keyCode == KeyEvent.VK_DOWN && canSlideDown) {
-                this.score += this.scoreDown;
-                slideDown(this.dataSet);
-                addRandomNumber(this.dataSet);
-                repaint();
-            }
-        } else {
-            repaint();
-        }
-        this.scoreRight = 0;
-        this.scoreLeft = 0;
-        this.scoreUp = 0;
-        this.scoreDown = 0;
-    }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    private void addRandomNumber(int[][] intDoubleArray) {
+    public void addRandomNumber(int[][] intDoubleArray) {
         Random random = new Random();
         ArrayList<int[]> blankCoordinate = new ArrayList<>();
         for (int i = 0; i < 4; i++) {

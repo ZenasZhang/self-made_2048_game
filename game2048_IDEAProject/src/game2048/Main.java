@@ -1,6 +1,6 @@
 package game2048;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +9,7 @@ public class Main {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("2048 Game");
-        DataProcess panel = new DataProcess();
+        DrawData panel = new DrawData();
         frame.add(panel);
         frame.setVisible(true);
     }
